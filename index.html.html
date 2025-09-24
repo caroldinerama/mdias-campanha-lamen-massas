@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DINERAMA - Cronograma de Ações de Cashback</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: -20px;
+            width: 10px;
+            height: 10px;
+            background-color: #FFC300;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 3px #FFC300;
+        }
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            left: -16px;
+            width: 2px;
+            height: 100%;
+            background-color: #e2e8f0;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white shadow-md p-6">
+        <div class="flex items-center">
+            <img src="https://i.imgur.com/DXXL3UY.png" alt="M. Dias Branco Logo" class="h-14 mr-4">
+            <div class="text-left">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">DINERAMA + M. DIAS BRANCO</h1>
+                <h2 class="text-xl md:text-2xl font-semibold text-[#f9af25] mt-1">Campanha Outubro & Novembro</h2>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        <section id="budget" class="mb-12">
+            <h3 class="text-2xl font-bold text-center mb-6">Visão Geral do Orçamento</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <p class="text-lg text-gray-600 mb-2">Saldo Total Disponível</p>
+                    <p class="text-6xl font-black text-gray-900">R$70k</p>
+                    <p class="text-sm text-gray-500 mt-2">Valores ajustáveis conforme o desempenho das ações.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h4 class="text-lg font-bold text-center mb-4">Distribuição do Orçamento</h4>
+                    <div class="chart-container">
+                        <canvas id="budgetChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="resumo" class="mb-12">
+             <h3 class="text-2xl font-bold text-center mb-6">Resumo Geral</h3>
+             <div class="bg-white rounded-lg shadow-md p-8 max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Orçamento Total</p>
+                        <p class="text-3xl font-bold text-gray-800 mt-1">R$ 70.000</p>
+                    </div>
+                     <div>
+                        <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Orçamento Lamen</p>
+                        <p class="text-3xl font-bold text-gray-800 mt-1">R$ 40.000</p>
+                    </div>
+                     <div>
+                        <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Orçamento Massas</p>
+                        <p class="text-3xl font-bold text-gray-800 mt-1">R$ 30.000</p>
+                    </div>
+                </div>
+                <div class="border-t my-6"></div>
+                 <div class="text-center">
+                     <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Objetivo Principal</p>
+                     <p class="text-lg text-gray-800 mt-2 max-w-2xl mx-auto">Aumentar a experimentação e o volume de vendas dos produtos Lamen e Massas através de ações de cashback e desconto no app Dinerama.</p>
+                 </div>
+             </div>
+        </section>
+
+        <section id="timeline" class="mb-12">
+            <h3 class="text-2xl font-bold text-center mb-8">Cronograma de Ativações</h3>
+            <div class="relative max-w-4xl mx-auto">
+                <div class="timeline-line"></div>
+                <div class="mb-12">
+                    <h4 class="text-4xl font-bold mb-6 ml-2 text-gray-700">Outubro</h4>
+                    <div class="relative pl-8 timeline-item mb-8">
+                        <h5 class="text-xl font-semibold bg-yellow-200 text-yellow-800 inline-block px-3 py-1 rounded-full mb-3">1ª Quinzena: Extensão Promo Lamen</h5>
+                        <p class="text-sm font-medium text-blue-600 mb-3"><strong>Orçamento da Categoria (Lamen):</strong> R$ 40.000</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>SP, RJ:</strong> ADRIA com 50% de desconto.</div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>SUL:</strong> ISABELA com 50% de desconto.</div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>BA:</strong> VITARELLA/TRELOSO com 30-50% cashback.</div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>CE:</strong> RICHESTER/ANIMADOS ZOO com 30-50% cashback.</div>
+                        </div>
+                    </div>
+                    <div class="relative pl-8 timeline-item">
+                        <h5 class="text-xl font-semibold bg-green-200 text-green-800 inline-block px-3 py-1 rounded-full mb-3">2ª Quinzena: Dia da Massa</h5>
+                        <p class="text-sm font-medium text-green-700 mb-3"><strong>Orçamento da Categoria (Massas):</strong> R$ 30.000</p>
+                        <div class="space-y-3">
+                            <div class="bg-white p-4 rounded-lg border border-gray-200">Massa com Ovos e Grano Duro com <strong>30% de desconto</strong>.</div>
+                             <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>SP, RJ:</strong> Ativação com ADRIA.</div>
+                             <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>SUL:</strong> Ativação com ISABELA + ADRIA.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                     <h4 class="text-4xl font-bold mb-6 ml-2 text-gray-700">Novembro</h4>
+                     <div class="relative pl-8 timeline-item mb-8">
+                        <h5 class="text-xl font-semibold bg-yellow-200 text-yellow-800 inline-block px-3 py-1 rounded-full mb-3">1ª Quinzena: Extensão Promo Lamen</h5>
+                        <p class="text-sm font-medium text-gray-600 italic mb-3"><strong>Orçamento da Categoria (Lamen):</strong> Definir budget com base no valor que restar do orçamento inicial</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>SP, RJ:</strong> ADRIA com 50% de desconto.</div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>SUL:</strong> ISABELA com 50% de desconto.</div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>BA, PE:</strong> VITARELLA/TRELOSO com 30-50% cashback.</div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>CE:</strong> RICHESTER/ANIMADOS ZOO com 30-50% cashback.</div>
+                        </div>
+                    </div>
+                    <div class="relative pl-8 timeline-item">
+                        <h5 class="text-xl font-semibold bg-red-200 text-red-800 inline-block px-3 py-1 rounded-full mb-3">2ª Quinzena: Black Friday ⚡</h5>
+                        <p class="text-sm font-medium text-gray-600 italic mb-3"><strong>Orçamento da Categoria (Lamen):</strong> Definir budget com base no valor que restar do orçamento inicial</p>
+                        <div class="space-y-3">
+                            <div class="bg-white p-4 rounded-lg border border-red-300"><strong>🔥 100% de desconto</strong> no portfólio LAMEN ZERO para SP, SUL, RJ. Limitado a 3 unidades.</div>
+                            <div class="bg-white p-4 rounded-lg border border-gray-200"><strong>50% de desconto</strong> em itens regulares para BA, PE, CE. Limitado a 3 unidades.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-6 bg-gray-900 text-gray-400 mt-12">
+        <p>&copy; 2025 DINERAMA. Infográfico gerado para planejamento estratégico.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Chart.register(ChartDataLabels);
+            
+            const energeticPlayfulPalette = ['#33C4FF', '#FF5733'];
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+            
+            const budgetCtx = document.getElementById('budgetChart').getContext('2d');
+            new Chart(budgetCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Ações "Lamen"', 'Ações "Massas"'],
+                    datasets: [{
+                        label: 'Orçamento',
+                        data: [40000, 30000],
+                        backgroundColor: energeticPlayfulPalette,
+                        borderColor: '#ffffff',
+                        borderWidth: 4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    layout: {
+                        padding: 10
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    weight: '600'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback,
+                                label: function(context) {
+                                    let value = context.raw;
+                                    return ` R$ ${value.toLocaleString('pt-BR')}`;
+                                }
+                            }
+                        },
+                        datalabels: {
+                            color: '#1f2937',
+                            font: {
+                                weight: 'bold',
+                                size: 16
+                            },
+                            formatter: (value, context) => {
+                                const sum = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                const percentage = (value / sum * 100).toFixed(0) + '%';
+                                return `R$${value / 1000}k\n(${percentage})`;
+                            },
+                             textAlign: 'center'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
